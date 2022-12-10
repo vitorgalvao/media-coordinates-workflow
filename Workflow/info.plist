@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.vitorgalvao.alfred.mediacoordinates</string>
+	<key>connections</key>
+	<dict>
+		<key>4B6F8EAF-EEB4-4F5B-B631-0EE4E6423E1A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B4C31897-81BA-427A-94FC-5311B89CD053</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>B4C31897-81BA-427A-94FC-5311B89CD053</key>
+		<array/>
+	</dict>
+	<key>createdby</key>
+	<string>Vítor Galvão</string>
+	<key>description</key>
+	<string>Open photo, video, and audio GPS coordinates in a map</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Media Coordinates</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>function notification {
+  ./notificator --message "${1}" --title "${alfred_workflow_name}"
+}
+
+file="${1}"
+
+coordinates="$(exiftool -printFormat '$gpslatitude, $gpslongitude' --printConv "${file}")"
+
+if [[ -z "${coordinates}" ]]; then
+  afplay /System/Library/Sounds/Funk.aiff
+  notification 'Could not find GPS information'
+else
+  open "${map_provider}${coordinates}"
+fi</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>B4C31897-81BA-427A-94FC-5311B89CD053</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>acceptsmulti</key>
+				<integer>0</integer>
+				<key>filetypes</key>
+				<array>
+					<string>+public.audiovisual-content</string>
+					<string>+public.image</string>
+				</array>
+				<key>name</key>
+				<string>Open GPS Coordinates in Map</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.action</string>
+			<key>uid</key>
+			<string>4B6F8EAF-EEB4-4F5B-B631-0EE4E6423E1A</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>## Usage
+
+Use the [Universal Action](https://www.alfredapp.com/help/features/universal-actions/) on an image, video, or audio, to open its recorded GPS location in Apple Maps or Google Maps.
+
+![Open coordinates in map](images/about/ua.png)</string>
+	<key>uidata</key>
+	<dict>
+		<key>4B6F8EAF-EEB4-4F5B-B631-0EE4E6423E1A</key>
+		<dict>
+			<key>xpos</key>
+			<real>40</real>
+			<key>ypos</key>
+			<real>30</real>
+		</dict>
+		<key>B4C31897-81BA-427A-94FC-5311B89CD053</key>
+		<dict>
+			<key>xpos</key>
+			<real>230</real>
+			<key>ypos</key>
+			<real>30</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>http://maps.apple.com/?q=</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Apple</string>
+						<string>http://maps.apple.com/?q=</string>
+					</array>
+					<array>
+						<string>Google</string>
+						<string>https://www.google.com/maps?q=</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Maps Provider</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>map_provider</string>
+		</dict>
+	</array>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>2022.4</string>
+	<key>webaddress</key>
+	<string>https://github.com/vitorgalvao/media-coordinates-workflow/</string>
+</dict>
+</plist>
