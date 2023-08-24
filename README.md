@@ -2,7 +2,7 @@
 
 Open photo, video, and audio GPS coordinates in a map
 
-<a href='https://alfred.app/workflows/vitor/media-coordinates'>⤓ Install From the Alfred Gallery</a>
+[⤓ Install on the Alfred Gallery](https://alfred.app/workflows/vitor/media-coordinates)
 
 ## Usage
 
